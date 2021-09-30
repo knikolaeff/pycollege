@@ -1,6 +1,4 @@
-n1 = float(input('Введите первое число '))
-operation = input('Введите операцию ')
-n2 = float(input('Введите второе число '))
+import argparse
 if (operation == '/' or operation == 'mod' or operation == 'div') and n2 == 0:
     print('Деление на 0!')
 elif operation == '+':  print(n1 + n2) 
