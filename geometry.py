@@ -17,7 +17,4 @@ elif shape == 'круг':
     print('Введите радиус круга')
     r = int(input())
     S = 3.14 * r ** 2 
-else: 
-    print('Ты чё, дурак?')
-    quit()
 print(S)
