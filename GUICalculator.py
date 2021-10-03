@@ -5,7 +5,7 @@ window.title("Calculator")
 window.configure(bg="#72a3ea")
 window.geometry("370x355")
 
-entry = tk.Entry(window, width=38, borderwidth=3, bg="#d8fcff", fg="black")
+entry = tk.Entry(window, width=45, borderwidth=3, bg="#d8fcff", fg="black", state="readonly")
 entry.grid(row=0, column=0, columnspan=4, padx=10, pady=5, ipady=5)
 
 
@@ -74,7 +74,10 @@ def equal():
         entry.insert(0, first_number * int(second_number))
 
     if action == "division":
-        entry.insert(0, first_number / int(second_number))
+        try:
+            entry.insert(0, first_number / int(second_number))
+        except ZeroDivisionError:
+            entry.insert(0, "Division by zero!")
 
     if action == "subtraction":
         entry.insert(0, first_number - int(second_number))
@@ -92,7 +95,7 @@ def make_cell_buttons():
 
 buttons1_9 = make_cell_buttons()
 
-button0 = tk.Button(window, text="0", padx=88, pady=20,
+button0 = tk.Button(window, text="0", padx=87, pady=20,
                     bg="#72a3ea", fg="black", command=lambda: click(0))
 
 button_equal = tk.Button(window, text="=", padx=40, pady=20,
@@ -106,13 +109,13 @@ button_clear = tk.Button(window, text="Clear", padx=77, pady=20,
 
 button_divide = tk.Button(window, text="/", padx=42, pady=20,
                           bg="#7285ea", fg="black", command=lambda: divide(entry.get()))
-button_multiply = tk.Button(window, text="*", padx=41, pady=20,
+button_multiply = tk.Button(window, text="*", padx=42, pady=20,
                             bg="#7285ea", fg="black", command=lambda: multiply(entry.get()))
 button_subtract = tk.Button(window, text="-", padx=42, pady=20,
                             bg="#7285ea", fg="black", command=lambda: subtract(entry.get()))
 button_dot = tk.Button(window, text=".", padx=42, pady=20,
                        bg="#72a3ea", fg="black", command=lambda: click("."))
-button_extra = tk.Button(window, text="Extra", padx=28, pady=20,
+button_extra = tk.Button(window, text="Extra", padx=30, pady=20,
                          bg="#7285ea", fg="black", command=lambda: click(1))
 
 
