@@ -60,7 +60,7 @@ def subtract(number):
     global action
     global first_number
     action = "subtraction"
-    first_number = int(number)
+    first_number = float(number)
     clean_input()
 
 
@@ -68,7 +68,7 @@ def power(number):
     global action
     global first_number
     action = "power"
-    first_number = int(number)
+    first_number = float(number)
     clean_input()
 
 
