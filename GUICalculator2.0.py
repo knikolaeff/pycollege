@@ -78,10 +78,14 @@ def equal():
         clean_input()
         entry.insert(0, calculation)
     except ZeroDivisionError:
+        clean_input()
         entry.insert(0, "Division by zero!")
     except ValueError:
+        clean_input()
         entry.insert(0, "Strings are not allowed!")
-
+    except OverflowError:
+        clean_input()
+        entry.insert(0, "The number is too big!")
 
     is_minus_clicked = False
 
@@ -165,5 +169,5 @@ button_clear.grid(row=5, column=0, columnspan=2)
 button_extra.grid(row=5, column=2)
 button_equal.grid(row=5, column=3)
 
-#window.resizable(False, False)
+window.resizable(False, False)
 window.mainloop()
