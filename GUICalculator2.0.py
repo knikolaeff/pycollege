@@ -13,8 +13,6 @@ else:
 entry = tk.Entry(window, width=50,  borderwidth=4, bg="#d8fcff", fg="black")
 entry.grid(row=0, column=0, columnspan=4, ipady=5, pady=5)
 
-
-is_minus_clicked = False
 is_extra_clicked = False
 action = None
 first_number = None
@@ -47,8 +45,8 @@ def extra():
         button_add.grid_forget()
         button_power.grid(row=1, column=3)
         button_root.grid(row=2, column=3)
-        button_pi.grid(row=3, column=3)
-        button_minus.grid(row=4, column=3)
+        button_opBracket.grid(row=3, column=3)
+        button_clBracket.grid(row=4, column=3)
     else:
         button_divide.grid(row=1, column=3)
         button_multiply.grid(row=2, column=3)
@@ -56,22 +54,11 @@ def extra():
         button_add.grid(row=4, column=3)
         button_power.grid_forget()
         button_root.grid_forget()
-        button_pi.grid_forget()
-        button_minus.grid_forget()
-
-
-def minus():
-    global is_minus_clicked
-    is_minus_clicked = not is_minus_clicked
-
-    if (is_minus_clicked):
-        entry.insert(0, "-")
-    else:
-        entry.delete(0, 1)
+        button_opBracket.grid_forget()
+        button_clBracket.grid_forget()
 
 
 def equal():
-    global is_minus_clicked
 
     try:
         calculation = eval(str(entry.get()))
@@ -87,7 +74,6 @@ def equal():
         clean_input()
         entry.insert(0, "The number is too big!")
 
-    is_minus_clicked = False
 
 
 def make_cell_buttons():
@@ -130,10 +116,10 @@ button_power = tk.Button(window, text="bⁿ", width=12, height=4,
                          bg="#7285ea", fg="black", command=lambda: click(" ** "))
 button_root = tk.Button(window, text="√", width=12, height=4,
                         bg="#7285ea", fg="black", command=lambda: root(entry.get()))
-button_pi = tk.Button(window, text="π", width=12, height=4,
-                      bg="#7285ea", fg="black", command=lambda: click(math.pi))
-button_minus = tk.Button(window, text="+/-", width=12, height=4,
-                         bg="#7285ea", fg="black", command=lambda: minus())
+button_clBracket = tk.Button(window, text=")", width=12, height=4,
+                         bg="#7285ea", fg="black", command=lambda: click(")"))
+button_opBracket = tk.Button(window, text="(", width=12, height=4,
+                         bg="#7285ea", fg="black", command=lambda: click("("))
 
 
 def fill_positions(buttons):
