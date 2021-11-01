@@ -22,7 +22,7 @@ sudo pacman -S python3
 ```
 
 # Usage
-To start a script, just use
+To start a script, just use next command in repo folder 
 
 ```console
 python %program_name%
