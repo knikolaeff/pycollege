@@ -80,6 +80,9 @@ def equal():
     except SyntaxError:
         clean_input()
         entry.insert(0, "Something went wrong!")
+    except NameError:
+        clean_input()
+        entry.insert(0, "Words are not allowed!")
 
 # This function declares buttons from 1 to 9. Every attribute of these buttons is the same except command and text 
 def make_cell_buttons():
