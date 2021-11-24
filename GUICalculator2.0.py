@@ -1,6 +1,7 @@
 import tkinter as tk
 import math
 import sys
+
 # Creating a window
 window = tk.Tk()
 window.title("Calculator")
@@ -28,6 +29,7 @@ def click(number):
     entry.insert(0, curValue + str(number))
 
 # Using the sqrt method from math package, this function calculates square root of an entered value
+# sqrt method from math package does it more accurate than "n ** 0.5" expression
 def root(number):
     clean_input()
     entry.insert(0, math.sqrt(float(number)))
@@ -97,7 +99,7 @@ button0 = tk.Button(window, text="0", width=26, height=4,
                     bg="#72a3ea", fg="black", command=lambda: click(0))
 
 button_equal = tk.Button(window, text="=", width=12, height=4,
-                         bg="#7285ea", fg="black", command=lambda: equal())
+                         bg="#7285ea", fg="black", command= lambda: equal())
 
 button_add = tk.Button(window, text="+", width=12, height=4,
                        bg="#7285ea", fg="black", command=lambda: click("+"))

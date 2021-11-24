@@ -141,7 +141,7 @@ def make_cell_buttons():
     for t in range(1, 10):
         new_btn = tk.Button(window, text=str(t),
                             width=12, height=4,
-                            bg="#72a3ea", fg="black",
+                            bg="#72a3ea", fg="#000000",
                             command=lambda x=t: click(x))
         arr.append(new_btn)
     return arr
@@ -215,5 +215,5 @@ button_clear.grid(row=5, column=0, columnspan=2)
 button_extra.grid(row=5, column=2)
 button_equal.grid(row=5, column=3)
 
-window.resizable(False, False)
+#window.resizable(False, False)
 window.mainloop()
