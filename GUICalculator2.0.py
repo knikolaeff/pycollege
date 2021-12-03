@@ -17,11 +17,15 @@ entry.grid(row=0, column=0, columnspan=4, ipady=5, pady=5)
 
 is_extra_clicked = False
 
-# This function will clean the entry 
+# This function will clean the entry
+
+
 def clean_input():
     entry.delete(0, "end")
 
-# "Click" function registers a button user clicks and shows it's value. 
+# "Click" function registers a button user clicks and shows it's value.
+
+
 def click(number):
 
     curValue = entry.get()
@@ -30,11 +34,15 @@ def click(number):
 
 # Using the sqrt method from math package, this function calculates square root of an entered value
 # sqrt method from math package does it more accurate than "n ** 0.5" expression
+
+
 def root(number):
     clean_input()
     entry.insert(0, math.sqrt(float(number)))
 
 # This function toggles "extra" tab by showing and hiding the buttons on the right
+
+
 def extra():
 
     global is_extra_clicked
@@ -61,7 +69,9 @@ def extra():
 
 # This function calculates input in the entry and prints the result. Also, it handles errors
 # Eval is a dangerous method, because it executes everything inside the entry without filtering it,
-# but this program will work only on user's machine so using is justified 
+# but this program will work only on user's machine so using is justified
+
+
 def equal():
 
     try:
@@ -84,7 +94,9 @@ def equal():
         clean_input()
         entry.insert(0, "Words are not allowed!")
 
-# This function declares buttons from 1 to 9. Every attribute of these buttons is the same except command and text 
+# This function declares buttons from 1 to 9. Every attribute of these buttons is the same except command and text
+
+
 def make_cell_buttons():
     lst = []
     for t in range(1, 10):
@@ -95,14 +107,15 @@ def make_cell_buttons():
         lst.append(new_btn)
     return lst
 
-# Declaring all the extra buttons manually because sizes are "hit or miss" in tkinter 
+
+# Declaring all the extra buttons manually because sizes are "hit or miss" in tkinter
 buttons1_9 = make_cell_buttons()
 
 button0 = tk.Button(window, text="0", width=26, height=4,
                     bg="#72a3ea", fg="black", command=lambda: click(0))
 
 button_equal = tk.Button(window, text="=", width=12, height=4,
-                         bg="#7285ea", fg="black", command= lambda: equal())
+                         bg="#7285ea", fg="black", command=lambda: equal())
 
 button_add = tk.Button(window, text="+", width=12, height=4,
                        bg="#7285ea", fg="black", command=lambda: click("+"))
@@ -132,12 +145,14 @@ button_root = tk.Button(window, text="√", width=12, height=4,
                         bg="#7285ea", fg="black", command=lambda: root(entry.get()))
 
 button_clBracket = tk.Button(window, text=")", width=12, height=4,
-                         bg="#7285ea", fg="black", command=lambda: click(")"))
+                             bg="#7285ea", fg="black", command=lambda: click(")"))
 
 button_opBracket = tk.Button(window, text="(", width=12, height=4,
-                         bg="#7285ea", fg="black", command=lambda: click("("))
+                             bg="#7285ea", fg="black", command=lambda: click("("))
 
 # Using dictionary, filling buttons from 1 to 9 into grid
+
+
 def fill_positions(buttons):
 
     buttonRowCol = {
