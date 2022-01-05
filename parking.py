@@ -1,6 +1,5 @@
 import tkinter as tk
-from tkinter.constants import END
-
+from tkinter.constants import END, DISABLED, ACTIVE
 
 window = tk.Tk()
 window.title("Parking App")
@@ -14,6 +13,8 @@ displayFrame.pack()
 canvas = tk.Canvas(master=displayFrame, width=600, height=230)
 canvas.pack()
 
+regplates = []
+
 
 class ParkingLot:
     def __init__(self, x1, y1, x2, y2, number):
@@ -24,17 +25,33 @@ class ParkingLot:
         self.number = number
         canvas.create_rectangle(x1, y1, x2, y2)
         canvas.create_text(x1 + 55, y2 + 10, text="Lot %s" % (number))
+        self.regplate = 0
 
     def TakeLot(self):
-        self.regplate = canvas.create_text(self.x1 + 55, self.y2 +
-                                           40, text=regplateEnt.get())
-        regplateEnt.delete(0, END)
-        lotEnt.delete(0, END)
+        if not (self.regplate):
+            self.regplate = canvas.create_text(self.x1 + 55, self.y2 +
+                                               40, text=regplateEnt.get())
+            regplateEnt.delete(0, END)
+            lotEnt.delete(0, END)
+            regplates.append(self.regplate)
+            IsFull()
 
     def EmptyLot(self):
         canvas.delete(self.regplate)
         regplateEnt.delete(0, END)
         lotEnt.delete(0, END)
+        del self.regplate
+        regplates.pop()
+        IsFull()
+
+
+def IsFull():
+    if len(regplates) >= 10:
+        canvas.itemconfigure(warning, state="normal")
+        saveBtn.config(state=DISABLED)
+    elif len(regplates) < 10:
+        canvas.itemconfigure(warning, state="hidden")
+        saveBtn.config(state=ACTIVE)
 
 
 parkingLots = {
@@ -56,13 +73,15 @@ regplateLbl.grid(row=0, column=1)
 lotLbl = tk.Label(master=interfaceFrame, text="Lot")
 lotLbl.grid(row=0, column=4)
 
-warningLbl = tk.Label(master=interfaceFrame, text="Full!", fg="red")
-
 regplateEnt = tk.Entry(master=interfaceFrame, width=30)
 regplateEnt.grid(row=1, column=0, columnspan=3, padx=5, pady=5)
 
 lotEnt = tk.Entry(master=interfaceFrame, width=5)
 lotEnt.grid(row=1, column=4)
+
+warning = canvas.create_text(
+    300, 30, text="Full!", fill="red", font="20", state="hidden")
+
 
 saveBtn = tk.Button(master=interfaceFrame, text="Save",
                     padx=5, command=lambda: parkingLots[int(lotEnt.get())].TakeLot())
@@ -71,5 +90,6 @@ saveBtn.grid(row=1, column=5, padx=5)
 removeBtn = tk.Button(master=interfaceFrame, text="Remove", padx=5,
                       command=lambda: parkingLots[int(lotEnt.get())].EmptyLot())
 removeBtn.grid(row=1, column=6, padx=5)
+
 
 tk.mainloop()
