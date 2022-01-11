@@ -3,7 +3,7 @@ from tkinter.constants import END, DISABLED, ACTIVE
 from tkinter import messagebox
 
 window = tk.Tk()
-window.title("Parking App")
+window.title("Parking")
 
 interfaceFrame = tk.Frame(window)
 interfaceFrame.pack()
@@ -25,7 +25,7 @@ class ParkingLot:
         self.y1 = y1
         self.x2 = x2
         self.y2 = y2
-        canvas.create_rectangle(x1, y1, x2, y2)
+        canvas.create_rectangle(x1, y1, x2, y2, width=3)
         canvas.create_text(x1 + 55, y2 + 10, text="Lot %s" % ParkingLot.counter)
         self.regplate = None
 
@@ -57,16 +57,16 @@ def IsFull():
     if len(regplates) >= 2:
         canvas.itemconfigure(FullWarning, state="normal")
         saveBtn.config(state=DISABLED)
-    elif len(regplates) < 2:
+    elif len(regplates) < 10:
         canvas.itemconfigure(FullWarning, state="hidden")
         saveBtn.config(state=ACTIVE)
 
-def CheckLot(**kwargs):
+def CheckLot(*args):
     try:
         key = int(lotEnt.get())
-        if "take" in kwargs:
+        if "take" in args:
             ParkingLots[key].TakeLot()
-        elif "empty" in kwargs:
+        elif "empty" in args:
             ParkingLots[key].EmptyLot()
     except ValueError:
         CleanEntries()
@@ -86,13 +86,18 @@ ParkingLots = {
     10: ParkingLot(485, 215, 595, 145),
 }
 
-# def BuildLots():
-#     ParkingLots = {}
-#     coord = [5, 135, 115, 65]
-#     key = 1
-#     for i in range(1, 6):
-#         ParkingLots[key] = (coord[0] + 120, coord[1], coord[2] + 120, coord[3])
+# ParkingLots = {}
 
+# def BuildLots():
+#     start_coord = [5, 135, 115, 65]
+#     coord = []
+#     for i, v in enumerate(start_coord, step=2):
+#         coord.append(v)
+#     key = range(1, 6)
+#     for i in key:
+#         ParkingLots[i] = ParkingLot(coord[0] + 120, coord[1], coord[2] + 120, coord[3])
+
+# BuildLots()
 
 regplateLbl = tk.Label(master=interfaceFrame, text="Registration number (< 7 characters)")
 regplateLbl.grid(row=0, column=1)
@@ -110,11 +115,11 @@ FullWarning = canvas.create_text(
     300, 20, text="Parking is full!", fill="red", font="20", state="hidden")
 
 saveBtn = tk.Button(master=interfaceFrame, text="Save",
-                    padx=5, command=lambda: CheckLot(action="take"))
+                    padx=5, command=lambda: CheckLot("take"))
 saveBtn.grid(row=1, column=5, padx=5)
 
 removeBtn = tk.Button(master=interfaceFrame, text="Remove", padx=5,
-                      command=lambda: CheckLot(action="empty"))
+                      command=lambda: CheckLot("empty"))
 removeBtn.grid(row=1, column=6, padx=5)
 
 
