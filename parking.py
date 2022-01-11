@@ -60,7 +60,7 @@ class ParkingLot:
             and (len(self.regplate) <= 7)
 
             # Checks if the lot is busy
-            and self.regplate):
+            and (self.regplate)):
 
             # Create texts with the regplate inside lot
             self.reg_text = canvas.create_text(self.x1 + 55, self.y2 + 
@@ -73,7 +73,7 @@ class ParkingLot:
             IsFull()
 
         # Handling in case if any condition fails
-        elif len(self.regplate) > 7:
+        elif len(self.regplate) > 7 and self.regplate in regplates:
             CleanEntries()
             messagebox.showerror(
                 "Error", "The regplate is too long!")
@@ -81,7 +81,7 @@ class ParkingLot:
         elif self.regplate in regplates:
             CleanEntries()
             messagebox.showerror(
-                "Error", "The regplate is already exist!")
+                "Error", "The regplate already exists!")
 
         elif not (self.regplate):
             CleanEntries()
