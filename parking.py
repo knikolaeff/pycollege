@@ -51,20 +51,21 @@ class ParkingLot:
     def TakeLot(self):
 
         # Gets the inputed regplate
-        self.regplate = regplateEnt.get()  
+        regplate = regplateEnt.get()  
 
         # Checks if regplate already exists
         if ( (self.regplate not in regplates)
 
             # Checks if regplate length is too long 
-            and (len(self.regplate) <= 7)
+            and (len(regplate) <= 7)
 
             # Checks if the lot is busy
-            and (self.regplate)):
+            and self.regplate == None):
 
             # Create texts with the regplate inside lot
             self.reg_text = canvas.create_text(self.x1 + 55, self.y2 + 
-                                               35, text=self.regplate, 
+                                               35, text=regplate, 
+                             
                                                font="verdana 15")
 
             canvas.itemconfigure(self.box, fill=color_taken)
@@ -73,11 +74,11 @@ class ParkingLot:
             IsFull()
 
         # Handling in case if any condition fails
-        elif len(self.regplate) > 7 and self.regplate in regplates:
+        elif len(regplate) > 7 and self.regplate in regplates:
             CleanEntries()
             messagebox.showerror(
                 "Error", "The regplate is too long!")
-
+  
         elif self.regplate in regplates:
             CleanEntries()
             messagebox.showerror(
@@ -127,6 +128,9 @@ def CheckLot(*args): # Checking whether the lot exists and determining what to d
             ParkingLots[key].EmptyLot()
         # Exception handling if incorrect lot is entered
     except ValueError:
+        CleanEntries()
+        messagebox.showerror("Error", "The lot does not exist!")
+    except KeyError: 
         CleanEntries()
         messagebox.showerror("Error", "The lot does not exist!")
 
