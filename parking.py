@@ -49,12 +49,11 @@ class ParkingLot:
         self.regplate = None
 
     def TakeLot(self):
-
         # Gets the inputed regplate
         regplate = regplateEnt.get()  
 
         # Checks if regplate already exists
-        if ( (self.regplate not in regplates)
+        if ( (regplate not in regplates)
 
             # Checks if regplate length is too long 
             and (len(regplate) <= 7)
@@ -70,11 +69,12 @@ class ParkingLot:
 
             canvas.itemconfigure(self.box, fill=color_taken)
             CleanEntries()
-            regplates.append(self.regplate)
+            regplates.append(regplate)
+            self.regplate = regplate
             IsFull()
 
         # Handling in case if any condition fails
-        elif len(regplate) > 7 and self.regplate in regplates:
+        elif len(regplate) > 7:
             CleanEntries()
             messagebox.showerror(
                 "Error", "The regplate is too long!")
