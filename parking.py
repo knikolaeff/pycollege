@@ -46,7 +46,7 @@ class ParkingLot:
                            ParkingLot.counter)
         # This attribute stores regplates to check whether parking is full 
         # and helps avoiding duplicates
-        self.regplate = None
+        self.isLotTaken = False
 
     def TakeLot(self):
         # Gets the inputed regplate
@@ -59,7 +59,7 @@ class ParkingLot:
             and (len(regplate) <= 7)
 
             # Checks if the lot is busy
-            and self.regplate == None):
+            and self.isLotTaken == False):
 
             # Create texts with the regplate inside lot
             self.reg_text = canvas.create_text(self.x1 + 55, self.y2 + 
@@ -70,7 +70,7 @@ class ParkingLot:
             canvas.itemconfigure(self.box, fill=color_taken)
             CleanEntries()
             regplates.append(regplate)
-            self.regplate = regplate
+            self.isLotTaken = True
             IsFull()
 
         # Handling in case if any condition fails
@@ -79,12 +79,12 @@ class ParkingLot:
             messagebox.showerror(
                 "Error", "The regplate is too long!")
   
-        elif self.regplate in regplates:
+        elif regplate in regplates:
             CleanEntries()
             messagebox.showerror(
                 "Error", "The regplate already exists!")
 
-        elif not (self.regplate):
+        elif self.isLotTaken == True:
             CleanEntries()
             messagebox.showerror(
                 "Error", "The lot is taken!")
