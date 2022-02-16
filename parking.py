@@ -26,7 +26,7 @@ canvas = tk.Canvas(master=displayFrame, width=596,
                    height=200, bg=color_primary)
 canvas.pack()
 
-# This list stores regplates. The program checks if the list has < 10 elements. 
+# This list stores regplates. The program checks if the list has < 10 elements.
 # If more - parking is full
 regplates = []
 
@@ -35,51 +35,54 @@ class ParkingLot:
     # Counter is needed to create text with the instance number lately
     counter = 0
     # Every instance has a rectangle, built on 4 coordinates with the related text on top
+
     def __init__(self, x1, y1, x2, y2):
         ParkingLot.counter += 1
         self.x1 = x1
         self.y1 = y1
         self.x2 = x2
         self.y2 = y2
-        self.box = canvas.create_rectangle(x1, y1, x2, y2, width=1, outline=color_outline)
+        self.box = canvas.create_rectangle(
+            x1, y1, x2, y2, width=1, outline=color_outline)
         canvas.create_text(x1 + 55, y2 + 10, font="Verdana 10", text="Lot %s" %
                            ParkingLot.counter)
-        # This attribute stores regplates to check whether parking is full 
-        # and helps avoiding duplicates
+        # This attribute stores is made to check whether lot is full to avoid duplicates
         self.isLotTaken = False
+        # The attribute stores an exact regplate inside the given lot
+        self.regplate = None
 
     def TakeLot(self):
         # Gets the inputed regplate
-        regplate = regplateEnt.get()  
+        self.regplate = regplateEnt.get()
 
         # Checks if regplate already exists
-        if ( (regplate not in regplates)
+        if ((self.regplate not in regplates)
 
-            # Checks if regplate length is too long 
-            and (len(regplate) <= 7)
+            # Checks if regplate length is too long
+            and (len(self.regplate) <= 7)
 
             # Checks if the lot is busy
-            and self.isLotTaken == False):
+                and self.isLotTaken == False):
 
             # Create texts with the regplate inside lot
-            self.reg_text = canvas.create_text(self.x1 + 55, self.y2 + 
-                                               35, text=regplate, 
-                             
+            self.reg_text = canvas.create_text(self.x1 + 55, self.y2 +
+                                               35, text=self.regplate,
+
                                                font="verdana 15")
 
             canvas.itemconfigure(self.box, fill=color_taken)
             CleanEntries()
-            regplates.append(regplate)
+            regplates.append(self.regplate)
             self.isLotTaken = True
             IsFull()
 
         # Handling in case if any condition fails
-        elif len(regplate) > 7:
+        elif len(self.regplate) > 7:
             CleanEntries()
             messagebox.showerror(
                 "Error", "The regplate is too long!")
-  
-        elif regplate in regplates:
+
+        elif self.regplate in regplates:
             CleanEntries()
             messagebox.showerror(
                 "Error", "The regplate already exists!")
@@ -94,21 +97,21 @@ class ParkingLot:
             canvas.delete(self.reg_text)
             canvas.itemconfigure(self.box, fill=color_primary)
             CleanEntries()
-            regplates.remove(regplate)
+            regplates.remove(self.regplate)
             self.isLotTaken = False
             IsFull()
-        except IndexError:
+        except:
             messagebox.showerror("Error", "Nothing to remove!")
+            CleanEntries()
 
 # As the name states, cleans everything. I use it so often so it's a better tone to have a separate function for this
-def CleanEntries(): 
+def CleanEntries():
     regplateEnt.delete(0, END)
     lotEnt.delete(0, END)
 
 
-
 # Checking whether parking is full and prints a warning label if so. Also, blocks button until at least one lot is free
-def IsFull(): 
+def IsFull():
     if len(regplates) >= 10:
         canvas.itemconfigure(FullWarning, state="normal")
         saveBtn.config(state=DISABLED)
@@ -116,9 +119,8 @@ def IsFull():
         canvas.itemconfigure(FullWarning, state="hidden")
         saveBtn.config(state=ACTIVE)
 
-
-
-def CheckLot(*args): # Checking whether the lot exists and determining what to do with it next
+ # Checking whether the lot exists and determining what to do with it next
+def CheckLot(*args): 
     try:
         key = int(lotEnt.get())
         # I use args to route the program to the particular route: to save or to remove
@@ -130,7 +132,7 @@ def CheckLot(*args): # Checking whether the lot exists and determining what to d
     except ValueError:
         CleanEntries()
         messagebox.showerror("Error", "The lot does not exist!")
-    except KeyError: 
+    except KeyError:
         CleanEntries()
         messagebox.showerror("Error", "The lot does not exist!")
 
@@ -165,7 +167,7 @@ lotEnt = tk.Entry(master=interfaceFrame, width=5)
 lotEnt.grid(row=1, column=4)
 
 # Creates text and imeditially hides it until parking is full
-FullWarning = canvas.create_text( 
+FullWarning = canvas.create_text(
     300, 20, text="Parking is full!", fill=color_warning, font="20", state="hidden")
 
 saveBtn = tk.Button(master=interfaceFrame, text="Save",
