@@ -1,7 +1,7 @@
 ## pycollege
 Small programs, I've written in Python which I used for a college degree.
 
-We had a great focus on tkinter framework, which I don't like, but it is what it is
+We had a great focus on tkinter framework, that I don't like, but it is what it is
 
 Currently it has:
 1. Discriminant calculator
@@ -25,7 +25,7 @@ sudo pacman -S python3
 ```
 
 # Usage
-To start a script, just use next command in repo folder 
+To start a script, just use this command in repo folder 
 
 ```console
 python %program_name%
