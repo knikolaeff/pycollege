@@ -94,8 +94,8 @@ class ParkingLot:
             canvas.delete(self.reg_text)
             canvas.itemconfigure(self.box, fill=color_primary)
             CleanEntries()
-            regplates.remove(self.regplate)
-            self.regplate = None
+            regplates.remove(regplate)
+            self.isLotTaken = False
             IsFull()
         except IndexError:
             messagebox.showerror("Error", "Nothing to remove!")
