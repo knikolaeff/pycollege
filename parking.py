@@ -105,6 +105,8 @@ class ParkingLot:
             CleanEntries()
 
 # As the name states, cleans everything. I use it so often so it's a better tone to have a separate function for this
+
+
 def CleanEntries():
     regplateEnt.delete(0, END)
     lotEnt.delete(0, END)
@@ -120,7 +122,9 @@ def IsFull():
         saveBtn.config(state=ACTIVE)
 
  # Checking whether the lot exists and determining what to do with it next
-def CheckLot(*args): 
+
+
+def CheckLot(*args):
     try:
         key = int(lotEnt.get())
         # I use args to route the program to the particular route: to save or to remove
@@ -129,27 +133,31 @@ def CheckLot(*args):
         elif "empty" in args:
             ParkingLots[key].EmptyLot()
         # Exception handling if incorrect lot is entered
-    except ValueError:
-        CleanEntries()
-        messagebox.showerror("Error", "The lot does not exist!")
-    except KeyError:
+    except (ValueError, KeyError):
         CleanEntries()
         messagebox.showerror("Error", "The lot does not exist!")
 
 
-# Every instance declaration makes a lot (a box), 4 parameters are coordinates
-ParkingLots = {
-    1: ParkingLot(5, 105, 115, 35),
-    2: ParkingLot(125, 105, 235, 35),
-    3: ParkingLot(245, 105, 355, 35),
-    4: ParkingLot(365, 105, 475, 35),
-    5: ParkingLot(485, 105, 595, 35),
-    6: ParkingLot(5, 185, 115, 115),
-    7: ParkingLot(125, 185, 235, 115),
-    8: ParkingLot(245, 185, 355, 115),
-    9: ParkingLot(365, 185, 475, 115),
-    10: ParkingLot(485, 185, 595, 115),
-}
+ParkingLots = {}
+
+# This function creates a dictionary of instances of a ParkingLot class
+# Modulus five is needed to follow the pattern of coordinates 
+# 0 % 5 = 0, so first lot is not moving relatively to initial coordinates
+# But 1 % 5 = 1, so the next lot will be 120 pixels further
+
+# if statement checks for amount of lots in a row and moves the next lot to the next row every 5 lots
+
+def CreateLots():
+    initial_coords = [5, 105, 115, 35]
+    counter = 0
+    for i in range(0, 10):
+        ParkingLots[i+1] = ParkingLot(initial_coords[0] + (120 * (i % 5)), initial_coords[1] + (80 * counter),
+             initial_coords[2] + (120 * (i % 5)), initial_coords[3] + (80 * counter))
+        if (i + 1) % 5 == 0:
+            counter += 1
+
+
+CreateLots()
 
 # Declaring buttons, entries and labels: everything is located on the top part of an interface
 regplateLbl = tk.Label(master=interfaceFrame,
