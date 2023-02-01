@@ -1,7 +1,7 @@
 ## pycollege
-Small programs, I've written in Python which I used for a college degree.
+Originally, this repo had small programs, I've written in Python which I used for a college degree. But then I filled it with small scripts I was doing in self-educational purposes.
 
-We had a great focus on tkinter framework, that I don't like, but it is what it is
+We had a great focus on tkinter in college. I don't like this lib, but it is what it is
 
 Currently it has:
 1. Discriminant calculator
