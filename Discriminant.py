@@ -2,7 +2,7 @@ import math
 
 def Discriminant(a, b, c):
     D = b ** 2 - 4 * a * c
-    print("Discriminant equals to: " + str(D))
+    print(f"Discriminant equals to: {str(D)}")
     if D < 0:
         return ("No roots!")
     if D == 0:
@@ -15,10 +15,5 @@ while True:
     c = float(input("Enter your 'c' value: "))
     print(Discriminant(a, b, c))
     answer = input("Solve one more equation? (y/n): ")
-    if answer == 'y' or 'д':
-        continue
-    elif answer == 'n' or 'н':
-        break
-    else:
-        print('Try again!')
+    continue
 

@@ -44,8 +44,9 @@ class ParkingLot:
         self.y2 = y2
         self.box = canvas.create_rectangle(
             x1, y1, x2, y2, width=1, outline=color_outline)
-        canvas.create_text(x1 + 55, y2 + 10, font="Verdana 10", text="Lot %s" %
-                           ParkingLot.counter)
+        canvas.create_text(
+            x1 + 55, y2 + 10, font="Verdana 10", text=f"Lot {ParkingLot.counter}"
+        )
         # This attribute stores is made to check whether lot is full to avoid duplicates
         self.isLotTaken = False
         # The attribute stores an exact regplate inside the given lot
@@ -117,7 +118,7 @@ def IsFull():
     if len(regplates) >= 10:
         canvas.itemconfigure(FullWarning, state="normal")
         saveBtn.config(state=DISABLED)
-    elif len(regplates) < 10:
+    else:
         canvas.itemconfigure(FullWarning, state="hidden")
         saveBtn.config(state=ACTIVE)
 
@@ -150,7 +151,7 @@ ParkingLots = {}
 def CreateLots():
     initial_coords = [5, 105, 115, 35]
     counter = 0
-    for i in range(0, 10):
+    for i in range(10):
         ParkingLots[i+1] = ParkingLot(initial_coords[0] + (120 * (i % 5)), initial_coords[1] + (80 * counter),
              initial_coords[2] + (120 * (i % 5)), initial_coords[3] + (80 * counter))
         if (i + 1) % 5 == 0:
