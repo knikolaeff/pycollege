@@ -13,9 +13,9 @@ while True:
         print("Only digits allowed as a value!")
         continue
 
-if (operation == '/' or operation == 'mod' or operation == 'div') and n2 == 0:
+if operation in ['/', 'mod', 'div'] and n2 == 0:
     print('Division by zero!')
-elif operation == '+':  print(n1 + n2) 
+elif operation == '+':  print(n1 + n2)
 elif operation == '-':  print(n1 - n2)
 elif operation == '/':  print(n1 / n2)
 elif operation == '*':  print(n1 * n2)
